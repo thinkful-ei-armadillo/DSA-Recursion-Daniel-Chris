@@ -103,16 +103,13 @@ const tri = function(num) {
 // STRING SPLITTER
 
 const strSplit = function(str, splitter) {
+  const i = str.indexOf(splitter);
   //base case
-  if (str.length === 0) {
-    return '';
+  if (i < 0) {
+    return [str];
   }
   //recursive case
-  const newChar = str[0];
-  if (str[0] === splitter) {
-    newChar.slice(1);
-  }
-  return newChar + strSplit(str.slice(1), splitter);
+  return [str.slice(0, i), ...strSplit(str.slice(i + 1), splitter)].join('');
 };
 
 // console.log(strSplit('20/20/20', '/'));
@@ -137,7 +134,16 @@ const fibonnacci = function(num) {
 
 // FACTORIAL
 
+const factorial = function(num) {
+  //base
+  if (num === 1) {
+    return num * 1;
+  }
+  //recursive
+  return num * factorial(num - 1);
+};
 
+console.log(factorial(6));
 
 // MAZE 1
 
@@ -153,10 +159,12 @@ function GetOut(maze) {
 
   const path = function(column, row) {
     let pathTaken = [];
+    //base
     if (maze[column][row] === 'e') {
       console.log(pathTaken);
       return `You have made it out of the maze at column ${column} and row ${row}!`;
     }
+    // recursive
     else if (maze[column][row] === ' ') {
       console.log('Currently at column ' + column + ' and row ' + row + '.');
 
@@ -189,8 +197,6 @@ function GetOut(maze) {
 
 // console.log(GetOut(mazeArr));
 
-// FIND ALL WAYS OUT OF MAZE
-
 // ANAGRAMS
 
 const anagrams = function(word) {
@@ -212,9 +218,59 @@ const anagrams = function(word) {
   return results;
 };
 
-console.log(anagrams('hello'));
+// console.log(anagrams('hello'));
 
 // ORG CHART
+
+const facebook = [
+  { name: 'Zuckerbug', boss: null },
+  { name: 'Schroepfer', boss: 'Zuckerbug' },
+  { name: 'Schrage', boss: 'Zuckerbug' },
+  { name: 'Sandberg', boss: 'Zuckerbug' },
+  { name: 'Bosworth', boss: 'Schroepfer' },
+  { name: 'Zhao', boss: 'Schroepfer' },
+  { name: 'Steve', boss: 'Bosworth' },
+  { name: 'Kyle', boss: 'Bosworth' },
+  { name: 'Andra', boss: 'Bosworth' },
+  { name: 'Richie', boss: 'Zhao' },
+  { name: 'Sofia', boss: 'Zhao' },
+  { name: 'Jen', boss: 'Zhao' },
+  { name: 'VanDyck', boss: 'Schrage' },
+  { name: 'Sabrina', boss: 'VanDyck' },
+  { name: 'Michelle', boss: 'VanDyck' },
+  { name: 'Josh', boss: 'VanDyck' },
+  { name: 'Swain', boss: 'Schrage' },
+  { name: 'Blanch', boss: 'Swain' },
+  { name: 'Tom', boss: 'Swain' },
+  { name: 'Joe', boss: 'Swain' },
+  { name: 'Goler', boss: 'Sandberg' },
+  { name: 'Eddie', boss: 'Goler' },
+  { name: 'Julie', boss: 'Goler' },
+  { name: 'Annie', boss: 'Goler' },
+  { name: 'Hernandez', boss: 'Sandberg' },
+  { name: 'Rowi', boss: 'Hernandez' },
+  { name: 'Inga', boss: 'Hernandez' },
+  { name: 'Morgan', boss: 'Hernandez' },
+  { name: 'Moissinac', boss: 'Sandberg' },
+  { name: 'Amy', boss: 'Moissinac' },
+  { name: 'Chuck', boss: 'Moissinac' },
+  { name: 'Vinni', boss: 'Moissinac' },
+  { name: 'Kelley', boss: 'Sandberg' },
+  { name: 'Eric', boss: 'Kelley' },
+  { name: 'Ana', boss: 'Kelley' },
+  { name: 'Wes', boss: 'Kelley' }
+];
+
+const orgChart = function(arr, boss, level) {
+  let str = '';
+
+  arr.filter(person => person.boss === boss).forEach(person => {
+    str = str + ' ' + ' '.repeat(level * 4) + person.name + orgChart(arr, person.name, level + 1);
+  });
+  return str;
+};
+
+// console.log(orgChart(facebook, null));
 
 // BINARY REP
 
@@ -227,4 +283,4 @@ const binaryConv = function(num) {
   return binaryConv(num/2) + Math.floor(num % 2);
 };
 
-console.log(binaryConv(25));
+// console.log(binaryConv(25));

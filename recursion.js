@@ -80,22 +80,85 @@ const revStr = function(str) {
   if (str.length === 0) {
     return '';
   }
-  const charToEnd = str[str.length - 1];
+  const charToEnd = str[0];
   // recursive
-  return charToEnd + revStr(str.slice(-1));
+  return  revStr(str.slice(1)) + charToEnd;
 };
 
 // console.log(revStr('hello'));
 
 // nth triangular number
 
+const tri = function(num) {
+  //base
+  if (num <= 1) {
+    return num;
+  }
+  //recursive
+  return num + tri(num - 1);
+};
+
+console.log(tri(1));
+
 // STRING SPLITTER
+
+const strSplit = function(str, splitter) {
+  //base case
+  if (str.length === 0) {
+    return '';
+  }
+  //recursive case
+  const newChar = str[0];
+  if (str[0] === splitter) {
+    newChar.slice(1);
+  }
+  return newChar + strSplit(str.slice(1), splitter);
+};
+
+// console.log(strSplit('20/20/20', '/'));
 
 // FIBONNACCI
 
+const fibonnacci = function(num) {
+  //base
+  if (num === 1) {
+    return [0, 1];
+  }  
+  //recursive
+  else {
+    let result = fibonnacci(num - 1);
+    result.push(result[result.length - 1] + result[result.length - 2]);
+  
+    return result;
+  }
+};
+
+// console.log(fibonnacci(13));
+
 // FACTORIAL
 
+
+
 // MAZE 1
+
+let maze = [
+  [' ', ' ', ' ', '*', ' ', ' ', ' '],
+  ['*', '*', ' ', '*', ' ', '*', ' '],
+  [' ', ' ', ' ', ' ', ' ', ' ', ' '],
+  [' ', '*', '*', '*', '*', '*', ' '],
+  [' ', ' ', ' ', ' ', ' ', ' ', 'e']
+];
+
+const getOut = function() {
+  // base
+  if (maze[0] === 'e') {
+    return 'You have made it out of the maze!';
+  }
+  //recursive
+  if (maze[0] === ' ') {
+    return getOut
+  }
+};
 
 // FIND ALL WAYS OUT OF MAZE
 

@@ -98,7 +98,7 @@ const tri = function(num) {
   return num + tri(num - 1);
 };
 
-console.log(tri(1));
+// console.log(tri(13));
 
 // STRING SPLITTER
 
@@ -141,7 +141,7 @@ const fibonnacci = function(num) {
 
 // MAZE 1
 
-let maze = [
+let mazeArr = [
   [' ', ' ', ' ', '*', ' ', ' ', ' '],
   ['*', '*', ' ', '*', ' ', '*', ' '],
   [' ', ' ', ' ', ' ', ' ', ' ', ' '],
@@ -149,16 +149,35 @@ let maze = [
   [' ', ' ', ' ', ' ', ' ', ' ', 'e']
 ];
 
-const getOut = function() {
-  // base
-  if (maze[0] === 'e') {
-    return 'You have made it out of the maze!';
-  }
-  //recursive
-  if (maze[0] === ' ') {
-    return getOut
-  }
-};
+function GetOut(maze) {
+
+  const path = function(column, row) {
+    
+    if (maze[column][row] === 'e') {
+      return `You have made it out of the maze at column ${column} and row ${row}!`;
+    }
+    else if (maze[column][row] === ' ') {
+      console.log('Currently at column ' + column + ' and row ' + row + '.');
+
+      maze[column][row] = 7;
+
+      if (column < maze.length - 1) {
+        path(column + 1, row);
+      }
+      if(row < maze[column].length - 1) {
+        path(column, row + 1);
+      }
+      if(maze[column][row] === '*') {
+        path(column - 1, row);
+      }
+      if(maze[column][row] === '*') {
+        path(column, row - 1);
+      }
+    }
+  };
+}
+
+console.log(GetOut(mazeArr));
 
 // FIND ALL WAYS OUT OF MAZE
 
@@ -168,4 +187,13 @@ const getOut = function() {
 
 // BINARY REP
 
-// ^^to be done together in group review this afternoon
+const binaryConv = function(num) {
+  //base
+  if (num < 1) {
+    return '';
+  }
+  //recursive
+  return binaryConv(num/2) + Math.floor(num % 2);
+};
+
+console.log(binaryConv(25));

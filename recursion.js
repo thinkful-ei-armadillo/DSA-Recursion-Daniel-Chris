@@ -187,11 +187,32 @@ function GetOut(maze) {
   path(0,0);
 }
 
-console.log(GetOut(mazeArr));
+// console.log(GetOut(mazeArr));
 
 // FIND ALL WAYS OUT OF MAZE
 
 // ANAGRAMS
+
+const anagrams = function(word) {
+  let results = [];
+  //base
+  if (word.length <= 1) {
+    return [word];
+  }
+  
+  //recursive
+  const stringArray = word.split('');
+  stringArray.forEach((letter, index) => {
+    let charLeft = [...stringArray.slice(0, index), ...stringArray.slice(index + 1)].join('');
+    const innerPermuations = anagrams(charLeft);
+    innerPermuations.forEach(permutation => {
+      results.push(letter + permutation);
+    });
+  });
+  return results;
+};
+
+console.log(anagrams('hello'));
 
 // ORG CHART
 

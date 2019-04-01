@@ -152,7 +152,6 @@ let mazeArr = [
 function GetOut(maze) {
 
   const path = function(column, row) {
-    
     if (maze[column][row] === 'e') {
       return `You have made it out of the maze at column ${column} and row ${row}!`;
     }
@@ -162,19 +161,24 @@ function GetOut(maze) {
       maze[column][row] = 7;
 
       if (column < maze.length - 1) {
+        console.log('R');
         path(column + 1, row);
       }
       if(row < maze[column].length - 1) {
+        console.log('D');
         path(column, row + 1);
       }
       if(maze[column][row] === '*') {
+        console.log('L');
         path(column - 1, row);
       }
       if(maze[column][row] === '*') {
+        console.log('D');
         path(column, row - 1);
       }
     }
   };
+  path(0,0);
 }
 
 console.log(GetOut(mazeArr));
